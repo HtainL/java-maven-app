@@ -40,9 +40,9 @@ pipeline {
                         passwordVariable: 'PASS',
                         usernameVariable: 'USER'
                     )]) {
-                        sh "docker build -t nanatwn/demo-app:${IMAGE_NAME} ."
+                        sh "docker build -t htainlinn2001/demo-app:${IMAGE_NAME} ."
                         sh 'echo $PASS | docker login -u $USER --password-stdin'
-                        sh "docker push nanatwn/demo-app:${IMAGE_NAME}"
+                        sh "docker push htainlinn2001/demo-app:${IMAGE_NAME}"
                     }
                 }
             }
@@ -61,7 +61,7 @@ pipeline {
             steps {
                 script {
                     withCredentials([usernamePassword(
-                        credentialsId: 'gitlab-credentials',
+                        credentialsId: 'github-credentials',
                         passwordVariable: 'PASS',
                         usernameVariable: 'USER'
                     )]) {
@@ -72,10 +72,10 @@ pipeline {
                         sh 'git branch'
                         sh 'git config --list'
 
-                        sh "git remote set-url origin https://${USER}:${PASS}@gitlab.com/twn-devops-bootcamp/latest/08-jenkins/java-maven-app.git"
+                        sh "git remote set-url origin https://${USER}:${PASS}@github.com/HtainL/java-maven-app.git"
                         sh 'git add .'
                         sh 'git commit -m "ci: version bump"'
-                        sh 'git push origin HEAD:jenkins-jobs'
+                        sh 'git push origin HEAD:jenkins-job'
                     }
                 }
             }
